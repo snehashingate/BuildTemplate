@@ -45,7 +45,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    Contents: 'TodoApi.csproj'
+    Contents: 'TodoApi.zip'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
