@@ -24,23 +24,6 @@ steps:
     artifactStagingDirectory: '$(build.artifactStagingDirectory)'
 
 #---Publish
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    versioningScheme: 'off'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-
-#---Release
-- task: CopyFiles@2
-  inputs:
-    Contents: 'TodoApi.zip'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'BuildArtifact'
-    publishLocation: 'Container'
+- template: templates/publish.yml
+  parameters:
+    artifactstagingdirectory: '$(build.artifactStagingDirectory)'
