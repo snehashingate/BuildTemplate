@@ -15,6 +15,16 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'SonarServer'
+    scannerMode: 'MSBuild'
+    projectKey: 'testttap_testttap'
+    projectName: 'testttap'
+- task: SonarQubeAnalyze@5
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
 #---Build
 - template: templates/buildTemplate.yml
   parameters:
