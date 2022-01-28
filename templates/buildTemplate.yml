@@ -23,7 +23,10 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{parameters.artifactStagingDirectory}}"'
     platform: '${{parameters.buildPlatform}}'
     configuration: '${{parameters.buildConfiguration}}'
-
+    clean: true
+    restoreNugetPackages: true
+    msbuildArchitecture: 'x64'
+    
 - task: VSTest@2
   inputs:
     platform: '${{parameters.buildPlatform}}'
