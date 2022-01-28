@@ -29,6 +29,11 @@ steps:
     buildConfiguration: '$(buildConfiguration)'
     artifactStagingDirectory: '$(build.artifactStagingDirectory)'
 
+- task: SonarQubeAnalyze@5
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
+
 #---Publish
 - template: templates/publish.yml
   parameters:
