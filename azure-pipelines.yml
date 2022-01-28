@@ -15,17 +15,12 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-
-- task: VSBuild@1
+- task: SonarQubePrepare@5
   inputs:
-    solution: '${{parameters.solutionName}}'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{parameters.artifactStagingDirectory}}"'
-    platform: '${{parameters.buildPlatform}}'
-    configuration: '${{parameters.buildConfiguration}}'
-    clean: true
-    restoreNugetPackages: true
-    msbuildArchitecture: 'x64'
- 
+    SonarQube: 'SonarServer'
+    scannerMode: 'MSBuild'
+    projectKey: 'testttap_testttap'
+    
 #---Build
 - template: templates/buildTemplate.yml
   parameters:
