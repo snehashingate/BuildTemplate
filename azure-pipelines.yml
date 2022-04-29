@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- master
+- uat
 
 pool:
   vmImage: 'windows-latest'
@@ -17,7 +17,7 @@ variables:
 steps:
    
 #---Build
-- template: templates/buildTemplate.yml
+- template: ./templates/buildTemplate.yml
   parameters:
     solutionName: '$(solution)'
     buildPlatform: '$(buildPlatform)'
