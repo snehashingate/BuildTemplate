@@ -25,8 +25,8 @@ steps:
     
 - template: ./build_templates/VSTest_template.yml
   parameters:
-    platform: '${{parameters.buildPlatform}}'
-    configuration: '${{parameters.buildConfiguration}}'
+    buildPlatform: '${{parameters.buildPlatform}}'
+    buildConfiguration: '${{parameters.buildConfiguration}}'
     
 - template: ./build_templates/pack_and_publish_template.yml
   parameters:
