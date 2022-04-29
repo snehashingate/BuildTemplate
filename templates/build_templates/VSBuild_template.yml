@@ -19,5 +19,5 @@ steps:
     platform: '${{parameters.buildPlatform}}'
     configuration: '${{parameters.buildConfiguration}}'
     clean: true
-    restoreNugetPackages: true
+    restoreNugetPackages: false
     msbuildArchitecture: 'x64'
