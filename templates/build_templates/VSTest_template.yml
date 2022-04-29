@@ -1,13 +1,22 @@
 # File: templates/build_templates/VSTest_template.yml
 
 parameters:
-- name: 'buildPlatform'
-  type: string
-- name: 'buildConfiguration'
+#- name: 'buildPlatform'
+#  type: string
+#- name: 'buildConfiguration'
+#  type: string
+- name: 'DefaultWorkingDirectory'
   type: string
   
 steps:   
-- task: VSTest@2
+#- task: VSTest@2
+#  inputs:
+#    platform: '${{parameters.buildPlatform}}'
+#    configuration: '${{parameters.buildConfiguration}}'
+
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '${{parameters.buildPlatform}}'
-    configuration: '${{parameters.buildConfiguration}}'
+    command: 'test'
+    projects: '**/*.csproj'
+    testRunTitle: 'BuildTest'
+    workingDirectory: '${{parameters.DefaultWorkingDirectory}}'
