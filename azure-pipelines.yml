@@ -1,10 +1,10 @@
-# ASP.NET
-# Build and test ASP.NET projects.
-# Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
-trigger:
-- master
+#trigger:
+#- master
 
 pool:
   vmImage: 'windows-latest'
@@ -15,26 +15,6 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: SonarQubePrepare@5
-  inputs:
-    SonarQube: 'SonarServer'
-    scannerMode: 'MSBuild'
-    projectKey: 'testttap_testttap'
-    
 #---Build
 - template: templates/buildTemplate.yml
   parameters:
-    solutionName: '$(solution)'
-    buildPlatform: '$(buildPlatform)'
-    buildConfiguration: '$(buildConfiguration)'
-    artifactStagingDirectory: '$(build.artifactStagingDirectory)'
-
-- task: SonarQubeAnalyze@5
-- task: SonarQubePublish@5
-  inputs:
-    pollingTimeoutSec: '300'
-
-#---Publish
-- template: templates/publish.yml
-  parameters:
-    artifactstagingdirectory: '$(build.artifactStagingDirectory)'
