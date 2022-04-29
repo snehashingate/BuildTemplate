@@ -1,0 +1,16 @@
+# File: templates/build_templates/NuGetToolInstaller_template.yml
+
+parameters:
+- name: 'solutionName'  # defaults for any parameters that aren't specified
+  type: string
+
+steps:
+
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '${{parameters.solutionName}}'
+
+
+

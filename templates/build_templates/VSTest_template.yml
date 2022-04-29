@@ -1,0 +1,13 @@
+# File: templates/build_templates/VSTest_template.yml
+
+parameters:
+- name: 'buildPlatform'
+  type: string
+- name: 'buildConfiguration'
+  type: string
+  
+steps:   
+- task: VSTest@2
+  inputs:
+    platform: '${{parameters.buildPlatform}}'
+    configuration: '${{parameters.buildConfiguration}}'

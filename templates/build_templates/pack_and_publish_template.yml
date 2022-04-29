@@ -1,0 +1,27 @@
+# File: templates/build_templates/pack_and_publish_template.yml
+
+parameters:
+- name: 'artifactstagingdirectory'
+  type: string
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
+    
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+
+- task: CopyFiles@2
+  inputs:
+    Contents: 'TodoApi.zip'
+    TargetFolder: '${{parameters.artifactstagingdirectory}}'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '${{parameters.artifactstagingdirectory}}'
+    ArtifactName: 'BuildArtifact'
+    publishLocation: 'Container'

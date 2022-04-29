@@ -11,23 +11,23 @@ parameters:
   type: string
 
 steps:
-- task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '${{parameters.solutionName}}'
+- template: build_templates/NuGetToolInstaller_template.yml
+  parameters:
+    solutionName: '${{parameters.solutionName}}'
 
-- task: VSBuild@1
-  inputs:
-    solution: '${{parameters.solutionName}}'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{parameters.artifactStagingDirectory}}"'
-    platform: '${{parameters.buildPlatform}}'
-    configuration: '${{parameters.buildConfiguration}}'
-    clean: true
-    restoreNugetPackages: true
-    msbuildArchitecture: 'x64'
+- template: build_templates/VSBuild_template.yml
+  parameters:
+    solutionName: '${{parameters.solutionName}}'
+    buildPlatform: '${{parameters.buildPlatform}}'
+    buildConfiguration: '${{parameters.buildConfiguration}}'
+    artifactStagingDirectory: '${{parameters.artifactStagingDirectory}}'
     
-- task: VSTest@2
-  inputs:
+- template: build_templates/VSTest_template.yml
+  parameters:
     platform: '${{parameters.buildPlatform}}'
     configuration: '${{parameters.buildConfiguration}}'
+    
+- template: build_templates/pack_and_publish_template.yml
+  parameters:
+    artifactstagingdirectory: '${{parameters.artifactStagingDirectory}}'
