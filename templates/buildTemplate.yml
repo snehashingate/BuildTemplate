@@ -7,7 +7,9 @@ parameters:
   type: string
 - name: 'buildConfiguration'
   type: string
-- name: artifactStagingDirectory
+- name: 'artifactStagingDirectory'
+  type: string
+- name: 'workingDirectory'
   type: string
 
 steps:
@@ -25,8 +27,9 @@ steps:
     
 - template: ./build_templates/VSTest_template.yml
   parameters:
-    buildPlatform: '${{parameters.buildPlatform}}'
-    buildConfiguration: '${{parameters.buildConfiguration}}'
+    #buildPlatform: '${{parameters.buildPlatform}}'
+    #buildConfiguration: '${{parameters.buildConfiguration}}'
+    workingDirectory: '${{parameters.workingDirectory}}'
     
 - template: ./build_templates/pack_and_publish_template.yml
   parameters:
