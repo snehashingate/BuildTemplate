@@ -12,22 +12,22 @@ parameters:
 
 steps:
 
-- template: build_templates/NuGetToolInstaller_template.yml
+- template: ./build_templates/NuGetToolInstaller_template.yml
   parameters:
     solutionName: '${{parameters.solutionName}}'
 
-- template: build_templates/VSBuild_template.yml
+- template: ./build_templates/VSBuild_template.yml
   parameters:
     solutionName: '${{parameters.solutionName}}'
     buildPlatform: '${{parameters.buildPlatform}}'
     buildConfiguration: '${{parameters.buildConfiguration}}'
     artifactStagingDirectory: '${{parameters.artifactStagingDirectory}}'
     
-- template: build_templates/VSTest_template.yml
+- template: ./build_templates/VSTest_template.yml
   parameters:
     platform: '${{parameters.buildPlatform}}'
     configuration: '${{parameters.buildConfiguration}}'
     
-- template: build_templates/pack_and_publish_template.yml
+- template: ./build_templates/pack_and_publish_template.yml
   parameters:
     artifactstagingdirectory: '${{parameters.artifactStagingDirectory}}'
