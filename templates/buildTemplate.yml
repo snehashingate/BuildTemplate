@@ -9,7 +9,7 @@ parameters:
   type: string
 - name: 'artifactStagingDirectory'
   type: string
-- name: 'workingDirectory'
+- name: 'DefaultWorkingDirectory'
   type: string
 
 steps:
@@ -29,7 +29,7 @@ steps:
   parameters:
     #buildPlatform: '${{parameters.buildPlatform}}'
     #buildConfiguration: '${{parameters.buildConfiguration}}'
-    workingDirectory: '${{parameters.workingDirectory}}'
+    DefaultWorkingDirectory: '${{parameters.DefaultWorkingDirectory}}'
     
 - template: ./build_templates/pack_and_publish_template.yml
   parameters:
