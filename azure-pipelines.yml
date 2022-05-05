@@ -15,7 +15,12 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'SampleWebappDeployment'
+    appType: 'webAppLinux'
+    appName: 'SampleWebappDeployment'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 #---Build
 - template: ./templates/buildTemplate.yml
   parameters:
