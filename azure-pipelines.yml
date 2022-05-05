@@ -26,3 +26,9 @@ steps:
     DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
 
 
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'SampleWebappDeployment'
+    appType: 'webAppLinux'
+    appName: 'SampleWebappDeployment'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
