@@ -15,7 +15,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-   
+
 #---Build
 - template: ./templates/buildTemplate.yml
   parameters:
@@ -24,3 +24,5 @@ steps:
     buildConfiguration: '$(buildConfiguration)'
     artifactStagingDirectory: '$(build.artifactStagingDirectory)'
     DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
+
+
