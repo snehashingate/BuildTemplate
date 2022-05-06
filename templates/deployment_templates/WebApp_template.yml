@@ -1,0 +1,23 @@
+# WebApp deployment template
+
+parameters:
+- name: 'azureSubscription'
+  type: string
+- name: 'appType'
+  type: string
+- name: 'appName'
+  type: string
+- name: 'package'
+  type: string
+- name: 'deploymentMethod'
+  type: string
+  
+steps:
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: '${{parameters.azureSubscription}}'
+    appType: '${{parameters.appType}}'
+    appName: '${{parameters.appName}}'
+    package: '${{parameters.package}}'
+    deploymentMethod: '${{parameters.deploymentMethod}}'
