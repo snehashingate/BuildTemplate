@@ -18,10 +18,10 @@ steps:
 
 - task: SonarQubePrepare@5
   inputs:
-     SonarQube: 'sonarqube63998'
-     scannerMode: 'MSBuild'
-     projectKey: 'BuildTemplate_BuildTemplate_AYCOwWbt5hTFp9NdoVHg'
-     projectName: 'sonar.projectName'
+    SonarQube: 'Sonar'
+    scannerMode: 'MSBuild'
+    projectKey: 'BuildTemplate_BuildTemplate_AYCOwWbt5hTFp9NdoVHg'
+    projectName: 'sonar.projectName'
 
 #---Build
 - template: ./templates/buildTemplate.yml
