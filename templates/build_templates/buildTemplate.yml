@@ -1,0 +1,36 @@
+# File: templates/steps-with-params.yml
+
+parameters:
+- name: 'solutionName'  # defaults for any parameters that aren't specified
+  type: string
+- name: 'buildPlatform'
+  type: string
+- name: 'buildConfiguration'
+  type: string
+- name: 'artifactStagingDirectory'
+  type: string
+- name: 'DefaultWorkingDirectory'
+  type: string
+
+steps:
+
+- template: ./NuGetToolInstaller_template.yml
+  parameters:
+    solutionName: '${{parameters.solutionName}}'
+
+- template: ./VSBuild_template.yml
+  parameters:
+    solutionName: '${{parameters.solutionName}}'
+    buildPlatform: '${{parameters.buildPlatform}}'
+    buildConfiguration: '${{parameters.buildConfiguration}}'
+    artifactStagingDirectory: '${{parameters.artifactStagingDirectory}}'
+    
+- template: ./VSTest_template.yml
+  parameters:
+    #buildPlatform: '${{parameters.buildPlatform}}'
+    #buildConfiguration: '${{parameters.buildConfiguration}}'
+    DefaultWorkingDirectory: '${{parameters.DefaultWorkingDirectory}}'
+    
+- template: ./pack_and_publish_template.yml
+  parameters:
+    artifactstagingdirectory: '${{parameters.artifactStagingDirectory}}'
