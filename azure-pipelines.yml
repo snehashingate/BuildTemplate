@@ -32,7 +32,7 @@ steps:
     projectName: 'sonar.projectName'
 
 #---Build
-- template: ./templates/buildTemplate.yml
+- template: ./templates/build_templates/buildTemplate.yml
   parameters:
     solutionName: '$(solution)'
     buildPlatform: '$(buildPlatform)'
