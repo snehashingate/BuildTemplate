@@ -21,6 +21,7 @@ variables:
   scannerMode: 'MSBuild'
   projectKey: 'BuildTemplate_BuildTemplate_AYCOwWbt5hTFp9NdoVHg'
   projectName: 'sonar.projectName'
+  appName: 'SampleWebappDeployment'
 
 steps:
 
