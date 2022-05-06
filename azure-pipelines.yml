@@ -33,3 +33,8 @@ steps:
     appName: 'SampleWebappDeployment'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
     deploymentMethod: 'auto'
+    
+- task: SonarQubeAnalyze@5
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
