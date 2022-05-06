@@ -10,9 +10,17 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
+  azureSubscription: 'CSP-Competency Dev-IMS App Ops-Mohammed khaja Pasha(1)(3dc3cd1a-d5cd-4e3e-a648-b2253048af83)'
   solution: '**/*.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  appType: 'webApp'
+  deploymentMethod: 'auto'
+  package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+  SonarQube: 'Sonar'
+  scannerMode: 'MSBuild'
+  projectKey: 'BuildTemplate_BuildTemplate_AYCOwWbt5hTFp9NdoVHg'
+  projectName: 'sonar.projectName'
 
 steps:
 
