@@ -43,7 +43,7 @@ steps:
 #Prepare Analysis Configuration
 - template: ./templates/SonarQube_templates/PrepareAnalysisConfiguration_template.yml
   parameters:
-    SonarQube: '$(Sonar)'
+    SonarQube: '$(SonarQube)'
     scannerMode: '$(scannerMode)'
     projectKey: '$(projectKey)'
     projectName: '$(projectName)'
