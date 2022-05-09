@@ -1,0 +1,10 @@
+# Publish Quality Gate Result 
+
+parameters: 
+- name: 'pollingTimeoutSec'
+  type: string
+
+steps:
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '${{parameters.pollingTimeoutSec}}'
