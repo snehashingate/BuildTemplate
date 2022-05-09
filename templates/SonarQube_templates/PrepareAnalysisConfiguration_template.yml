@@ -1,0 +1,19 @@
+# Prepare analysis Configuration for SonarQube
+
+parameters: 
+- name: 'SonarQube'
+  type: string
+- name: 'scannerMode'
+  type: string
+- name: 'projectKey'
+  type: string
+- name: 'projectName'
+  type: string
+ 
+steps:
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: '${{parameters.SonarQube}}'
+    scannerMode: '${{parameters.scannerMode}}'
+    projectKey: '${{parameters.projectKey}}'
+    projectName: '${{parameters.projectName}}'
