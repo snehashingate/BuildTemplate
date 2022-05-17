@@ -66,7 +66,7 @@ steps:
     package: '$(package)'
     deploymentMethod: '$(deploymentMethod)'
 
-#- task: AzureWebApp@1
+# - task: AzureWebApp@1
 # inputs:
 #    azureSubscription: 'CSP-Competency Dev-IMS App Ops-Mohammed khaja Pasha(1)(3dc3cd1a-d5cd-4e3e-a648-b2253048af83)'
 #    appType: 'webApp'
