@@ -11,8 +11,6 @@ pool:
 
 variables:
 
-  websiteName: 'WeatherService'
-  appPoolName: 'WeatherService'
   #Build variables
   solution: '**/*.csproj'
   buildPlatform: 'Any CPU'
@@ -32,68 +30,8 @@ variables:
   projectName: 'sonar.projectName'
   pollingTimeoutSec: '300'
 
-stages:
-- stage: 'Build'
-  displayName: 'Build'
-  jobs:
-     - job: 
-       steps:
-      #---Build
-        - template: ./templates/build_templates/buildTemplate.yml
-          parameters:
-            solutionName: '$(solution)'
-            buildPlatform: '$(buildPlatform)'
-            buildConfiguration: '$(buildConfiguration)'
-            artifactStagingDirectory: '$(build.artifactStagingDirectory)'
-            DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
-- stage: 'Dev'
-  displayName: 'Dev'
-  dependsOn: 'Build'
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-  jobs:
-   - deployment: Dev
-     displayName: Dev
-     environment: 
-       name: 'Dev'    
-       resourceType: VirtualMachine
-     variables:
-     - name: websitePhysicalPath
-       value: '%SystemDrive%\inetpub\wwwroot\$(websiteName)'
+steps:
 
-     strategy:
-      runOnce:
-        deploy:
-          steps: 
-          - task: IISWebAppManagementOnMachineGroup@0
-            inputs:            
-              IISDeploymentType: 'IISWebsite'
-              ActionIISWebsite: 'CreateOrUpdateWebsite'
-              WebsiteName: '$(websiteName)'
-              WebsitePhysicalPath: '$(websitePhysicalPath)'
-              WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
-              CreateOrUpdateAppPoolForWebsite: true
-              AppPoolNameForWebsite: '$(appPoolName)'
-              DotNetVersionForWebsite: 'No Managed Code'
-              PipeLineModeForWebsite: 'Integrated'
-              AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
-              AddBinding: true
-              Bindings: |
-                  {
-                      bindings:[
-                          {
-                              "protocol":"http",
-                              "ipAddress":"",
-                              "hostname":"",
-                              "port":"80",
-                              "sslThumbprint":"",
-                              "sniFlag":false
-                          }
-                      ]
-                  }
-          - task: IISWebAppDeploymentOnMachineGroup@0
-            inputs:
-              WebSiteName: '$(websiteName)'
-              Package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/$(projectName).zip'
 # - task: SonarQubePrepare@5
 #   inputs:
 #     SonarQube: 'Sonar'
@@ -103,30 +41,30 @@ stages:
 
 #SonarQube
 #Prepare Analysis Configuration
-# - template: ./templates/SonarQube_templates/PrepareAnalysisConfiguration_template.yml
-#   parameters:
-#     SonarQube: '$(SonarQube)'
-#     scannerMode: '$(scannerMode)'
-#     projectKey: '$(projectKey)'
-#     projectName: '$(projectName)'
+- template: ./templates/SonarQube_templates/PrepareAnalysisConfiguration_template.yml
+  parameters:
+    SonarQube: '$(SonarQube)'
+    scannerMode: '$(scannerMode)'
+    projectKey: '$(projectKey)'
+    projectName: '$(projectName)'
 
-# #---Build
-# - template: ./templates/build_templates/buildTemplate.yml
-#   parameters:
-#     solutionName: '$(solution)'
-#     buildPlatform: '$(buildPlatform)'
-#     buildConfiguration: '$(buildConfiguration)'
-#     artifactStagingDirectory: '$(build.artifactStagingDirectory)'
-#     DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
+#---Build
+- template: ./templates/build_templates/buildTemplate.yml
+  parameters:
+    solutionName: '$(solution)'
+    buildPlatform: '$(buildPlatform)'
+    buildConfiguration: '$(buildConfiguration)'
+    artifactStagingDirectory: '$(build.artifactStagingDirectory)'
+    DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
 
-# # Deploy on webApp service https://samplewebappdeployment.azurewebsites.net/
-# - template: ./templates/deployment_templates/WebApp_template.yml
-#   parameters:
-#     azureSubscription: '$(azureSubscription)'
-#     appType: '$(appType)'
-#     appName: '$(appName)'
-#     package: '$(package)'
-#     deploymentMethod: '$(deploymentMethod)'
+# Deploy on webApp service https://samplewebappdeployment.azurewebsites.net/
+- template: ./templates/deployment_templates/WebApp_template.yml
+  parameters:
+    azureSubscription: '$(azureSubscription)'
+    appType: '$(appType)'
+    appName: '$(appName)'
+    package: '$(package)'
+    deploymentMethod: '$(deploymentMethod)'
 
 # - task: AzureWebApp@1
 # inputs:
@@ -138,13 +76,13 @@ stages:
     
 #SonarQube    
 #Run Code Analysis
-# - task: SonarQubeAnalyze@5
+- task: SonarQubeAnalyze@5
 
 #SonarQube
 #Publish Quality Gate Result
-# - template: ./templates/SonarQube_templates/PublishQualityGateResult_template.yml
-#   parameters:
-#     pollingTimeoutSec: '$(pollingTimeoutSec)'
+- template: ./templates/SonarQube_templates/PublishQualityGateResult_template.yml
+  parameters:
+    pollingTimeoutSec: '$(pollingTimeoutSec)'
    
 # - task: SonarQubePublish@5
 #   inputs:
