@@ -20,20 +20,21 @@ stages:
           displayName: 'dotnet restore'
           inputs:
             command: 'restore'
-            projects: '*.sln'
+            projects: '*.csproj'
+            feedsToUse: 'select'
 
         - task: DotNetCoreCLI@2
           displayName: Build
           inputs:
             command: 'build'
-            projects: '*.sln'
-            arguments: --configuration Release
+            projects: '*.csproj'
+            arguments: '--configuration Release'
 
         - task: DotNetCoreCLI@2
           displayName: Test
           inputs:
-            command: test
-            projects: '*.sln'
+            command: 'test'
+            projects: '*.csproj'
             arguments: '--configuration $(BuildConfiguration)'
        
         - task: DotNetCoreCLI@2
