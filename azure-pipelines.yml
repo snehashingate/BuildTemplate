@@ -7,16 +7,17 @@
 #   vmImage: 'windows-latest'
 trigger: none
 
-parameters:
+variables:
+- group: my-variable-group
 - name: image
-  displayName: Pool Image
-  type: string
-  default: ubuntu-latest
+  # displayName: Pool Image
+  # type: string
+  # default: ubuntu-latest
 
 - name: solution
-  displayName: Solution type
-  type: string
-  default: '**/*.csproj'
+  # displayName: Solution type
+  # type: string
+  # default: '**/*.csproj'
 
 jobs:
 - job: build
