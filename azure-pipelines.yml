@@ -12,6 +12,9 @@ parameters:
   displayName: Pool Image
   type: string
   default: ubuntu-latest
+  values:
+    - a
+    - b
 
 - name: solution
   displayName: Solution type
