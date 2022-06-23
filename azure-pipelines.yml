@@ -3,86 +3,110 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
-trigger:
-- uat
+# pool:
+#   vmImage: 'windows-latest'
+trigger: none
 
-pool:
-  vmImage: 'windows-latest'
+parameters:
+- name: image
+  displayName: Pool Image
+  type: string
+  default: ubuntu-latest
 
-variables:
+- name: solution
+  displayName: Solution type
+  type: string
+  default: '**/*.csproj'
 
-  #Build variables
-  solution: '**/*.csproj'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+jobs:
+- job: build
+  displayName: build
+  pool: 
+    vmImage: ${{ parameters.image }}
+  steps:
+  - script: echo building $(Build.BuildNumber) with ${{ parameters.image }}
+
+  - template: ./templates/build_templates/buildTemplate.yml
+    parameters:
+      buildPlatform: 'Any CPU'
+      buildConfiguration: 'Release'
+      artifactStagingDirectory: '$(build.artifactStagingDirectory)'
+      DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
+      
+# variables:
+
+#   #Build variables
+#   solution: '**/*.csproj'
+#   buildPlatform: 'Any CPU'
+#   buildConfiguration: 'Release'
   
-  #Deploy variables
-  azureSubscription: 'CSP-Competency Dev-IMS App Ops-Mohammed khaja Pasha(3dc3cd1a-d5cd-4e3e-a648-b2253048af83)'
-  appName: 'SampleWebappDeployment'
-  appType: 'webApp'
-  deploymentMethod: 'auto'
-  package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#   #Deploy variables
+#   azureSubscription: 'CSP-Competency Dev-IMS App Ops-Mohammed khaja Pasha(3dc3cd1a-d5cd-4e3e-a648-b2253048af83)'
+#   appName: 'SampleWebappDeployment'
+#   appType: 'webApp'
+#   deploymentMethod: 'auto'
+#   package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
-  #SonarQube variables
-  SonarQube: 'Sonar'
-  scannerMode: 'MSBuild'
-  projectKey: 'BuildTemplate_BuildTemplate_AYCOwWbt5hTFp9NdoVHg'
-  projectName: 'sonar.projectName'
-  pollingTimeoutSec: '300'
+#   #SonarQube variables
+#   SonarQube: 'Sonar'
+#   scannerMode: 'MSBuild'
+#   projectKey: 'BuildTemplate_BuildTemplate_AYCOwWbt5hTFp9NdoVHg'
+#   projectName: 'sonar.projectName'
+#   pollingTimeoutSec: '300'
 
-steps:
+# steps:
 
-# - task: SonarQubePrepare@5
-#   inputs:
-#     SonarQube: 'Sonar'
-#     scannerMode: 'MSBuild'
-#     projectKey: 'BuildTemplate_BuildTemplate_AYCOwWbt5hTFp9NdoVHg'
-#     projectName: 'sonar.projectName'
+# # - task: SonarQubePrepare@5
+# #   inputs:
+# #     SonarQube: 'Sonar'
+# #     scannerMode: 'MSBuild'
+# #     projectKey: 'BuildTemplate_BuildTemplate_AYCOwWbt5hTFp9NdoVHg'
+# #     projectName: 'sonar.projectName'
 
-#SonarQube
-#Prepare Analysis Configuration
-- template: ./templates/SonarQube_templates/PrepareAnalysisConfiguration_template.yml
-  parameters:
-    SonarQube: '$(SonarQube)'
-    scannerMode: '$(scannerMode)'
-    projectKey: '$(projectKey)'
-    projectName: '$(projectName)'
+# #SonarQube
+# #Prepare Analysis Configuration
+# - template: ./templates/SonarQube_templates/PrepareAnalysisConfiguration_template.yml
+#   parameters:
+#     SonarQube: '$(SonarQube)'
+#     scannerMode: '$(scannerMode)'
+#     projectKey: '$(projectKey)'
+#     projectName: '$(projectName)'
 
-#---Build
-- template: ./templates/build_templates/buildTemplate.yml
-  parameters:
-    solutionName: '$(solution)'
-    buildPlatform: '$(buildPlatform)'
-    buildConfiguration: '$(buildConfiguration)'
-    artifactStagingDirectory: '$(build.artifactStagingDirectory)'
-    DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
+# #---Build
+#   - template: ./templates/build_templates/buildTemplate.yml
+#     parameters:
+# #     solutionName: '$(solution)'
+# #     buildPlatform: '$(buildPlatform)'
+# #     buildConfiguration: '$(buildConfiguration)'
+#       artifactStagingDirectory: '$(build.artifactStagingDirectory)'
+#       DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
 
-# Deploy on webApp service https://samplewebappdeployment.azurewebsites.net/
-- template: ./templates/deployment_templates/WebApp_template.yml
-  parameters:
-    azureSubscription: '$(azureSubscription)'
-    appType: '$(appType)'
-    appName: '$(appName)'
-    package: '$(package)'
-    deploymentMethod: '$(deploymentMethod)'
+# # Deploy on webApp service https://samplewebappdeployment.azurewebsites.net/
+# - template: ./templates/deployment_templates/WebApp_template.yml
+#   parameters:
+#     azureSubscription: '$(azureSubscription)'
+#     appType: '$(appType)'
+#     appName: '$(appName)'
+#     package: '$(package)'
+#     deploymentMethod: '$(deploymentMethod)'
 
-# - task: AzureWebApp@1
-# inputs:
-#    azureSubscription: 'CSP-Competency Dev-IMS App Ops-Mohammed khaja Pasha(1)(3dc3cd1a-d5cd-4e3e-a648-b2253048af83)'
-#    appType: 'webApp'
-#    appName: 'SampleWebappDeployment'
-#    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-#    deploymentMethod: 'auto'
+# # - task: AzureWebApp@1
+# # inputs:
+# #    azureSubscription: 'CSP-Competency Dev-IMS App Ops-Mohammed khaja Pasha(1)(3dc3cd1a-d5cd-4e3e-a648-b2253048af83)'
+# #    appType: 'webApp'
+# #    appName: 'SampleWebappDeployment'
+# #    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+# #    deploymentMethod: 'auto'
     
-#SonarQube    
-#Run Code Analysis
-- task: SonarQubeAnalyze@5
+# #SonarQube    
+# #Run Code Analysis
+# - task: SonarQubeAnalyze@5
 
-#SonarQube
-#Publish Quality Gate Result
-- template: ./templates/SonarQube_templates/PublishQualityGateResult_template.yml
-  parameters:
-    pollingTimeoutSec: '$(pollingTimeoutSec)'
+# #SonarQube
+# #Publish Quality Gate Result
+# - template: ./templates/SonarQube_templates/PublishQualityGateResult_template.yml
+#   parameters:
+#     pollingTimeoutSec: '$(pollingTimeoutSec)'
    
 # - task: SonarQubePublish@5
 #   inputs:
