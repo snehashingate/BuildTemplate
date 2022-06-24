@@ -1,23 +1,16 @@
-# File: templates/build_templates/VSBuild_template.yml
+# File: templates/build_templates/build_template.yml
 
 parameters:
 - name: 'solutionName'  # defaults for any parameters that aren't specified
   type: string
-- name: 'buildPlatform'
-  type: string
-- name: 'buildConfiguration'
-  type: string
-- name: artifactStagingDirectory
-  type: string
-
 
 steps:
 - task: VSBuild@1
   inputs:
     solution: '${{parameters.solutionName}}'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{parameters.artifactStagingDirectory}}"'
-    platform: '${{parameters.buildPlatform}}'
-    configuration: '${{parameters.buildConfiguration}}'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: 'Any CPU'
+    configuration: 'Release'
     clean: true
     restoreNugetPackages: false
     msbuildArchitecture: 'x64'
