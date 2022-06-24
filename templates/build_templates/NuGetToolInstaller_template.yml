@@ -3,14 +3,18 @@
 parameters:
 - name: 'solutionName'  # defaults for any parameters that aren't specified
   type: string
+- name: 'versionSpec'
+  type: string
 
 steps:
 
 - task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '${{parameters.versionSpec}}'
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '${{parameters.solutionName}}'
-
+    
 
 
