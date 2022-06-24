@@ -22,10 +22,10 @@ parameters:
     - macOS-10.15
 
 - name: solution
-  displayName: Solution type
+  displayName: Solution type (Choose .csproj for .NET Core app & .sln for ASP.NET app)
   type: string
   values:
-    - '**/*.csproj'
+    - '**/*.csproj'  
     - '**/*.sln'
 
 - name:  versionSpec
