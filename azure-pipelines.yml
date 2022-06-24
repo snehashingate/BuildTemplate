@@ -39,7 +39,7 @@ jobs:
 
   - template: ./templates/build_templates/buildTemplate.yml
     parameters:
-      solution: '$(solution)'
+      solutionName: '$(solution)'
       buildPlatform: 'Any CPU'
       buildConfiguration: 'Release'
       artifactStagingDirectory: '$(build.artifactStagingDirectory)'
