@@ -1,8 +1,8 @@
 # File: templates/build_templates/VSBuild_template.yml
 
 parameters:
-# - name: 'solutionName'  # defaults for any parameters that aren't specified
-#   type: string
+- name: 'solutionName'  # defaults for any parameters that aren't specified
+  type: string
 - name: 'buildPlatform'
   type: string
 - name: 'buildConfiguration'
@@ -14,7 +14,7 @@ parameters:
 steps:
 - task: VSBuild@1
   inputs:
-    # solution: '${{parameters.solutionName}}'
+    solution: '${{parameters.solutionName}}'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{parameters.artifactStagingDirectory}}"'
     platform: '${{parameters.buildPlatform}}'
     configuration: '${{parameters.buildConfiguration}}'
