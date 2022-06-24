@@ -56,7 +56,12 @@ jobs:
       versionSpec: '${{ parameters.versionSpec }}'
 
 # Build Template 
-  - template: ./templates/build_templates/buildTemplate.yml
+  - template: ./templates/buildTemplate.yml
+    parameters:
+      solutionName: '${{ parameters.solution }}'
+
+# Artifact Template    
+  - template: ./templates/Artifact_template.yml
     parameters:
       solutionName: '${{ parameters.solution }}'
       
