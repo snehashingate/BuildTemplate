@@ -13,7 +13,7 @@ parameters:
 - name: image
   displayName: Pool Image
   type: string
-  default: ubuntu-latest
+  default: windows-latest
   values:
     - windows-latest
     - windows-2019
@@ -29,6 +29,11 @@ parameters:
     - '**/*.csproj'
     - '**/*.sln'
 
+- name:  versionSpec
+  displayName: Nuget Tool Version 
+  type: string
+  default: 6.0.0
+
 jobs:
 - job: build
   displayName: build
@@ -37,13 +42,16 @@ jobs:
   steps:
   - script: echo building $(Build.BuildNumber) with ${{ parameters.image }}
 
+# Nuget Tool Installer task
+  - template: ./templates/NuGetToolInstaller_template.yml
+    parameters:
+      solutionName: '${{ parameters.solution }}'
+      versionSpec: '${{ parameters.versionSpec }}'
+
+# Build Template 
   - template: ./templates/build_templates/buildTemplate.yml
     parameters:
       solutionName: '${{ parameters.solution }}'
-      buildPlatform: 'Any CPU'
-      buildConfiguration: 'Release'
-      artifactStagingDirectory: '$(build.artifactStagingDirectory)'
-      DefaultWorkingDirectory: '$(System.DefaultWorkingDirectory)'
       
 # variables:
 
