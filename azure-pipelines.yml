@@ -5,7 +5,9 @@
 
 # pool:
 #   vmImage: 'windows-latest'
-trigger: none
+
+trigger:
+- uat
 
 parameters:
 - name: image
