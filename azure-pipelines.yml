@@ -22,7 +22,10 @@ parameters:
 - name: solution
   displayName: Solution type
   type: string
-  default: '**/*.csproj'
+  # default: '**/*.csproj'
+  values:
+    - '**/*.csproj'
+    - '**/*.sln'
 
 jobs:
 - job: build
