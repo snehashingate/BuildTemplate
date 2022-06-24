@@ -32,6 +32,13 @@ parameters:
   displayName: Nuget Tool Version 
   type: string
   default: 6.0.0
+  values:
+    - "6.2.1"
+    - "6.2.0"
+    - "6.1.0"
+    - "6.0.2"
+    - "5.11.2"
+    - "5.11.2"
 
 jobs:
 - job: build
