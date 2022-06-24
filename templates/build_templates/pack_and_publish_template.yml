@@ -1,4 +1,4 @@
-# File: templates/build_templates/pack_and_publish_template.yml
+# File: templates/build_templates/Artifact_template.yml
 
 parameters:
 - name: 'artifactstagingdirectory'
@@ -16,12 +16,12 @@ steps:
     command: 'publish'
     publishWebProjects: true
 
-- task: CopyFiles@2
-  inputs:
-    Contents: 'TodoApi.zip'
-    TargetFolder: '${{parameters.artifactstagingdirectory}}'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '${{parameters.artifactstagingdirectory}}'
-    ArtifactName: 'BuildArtifact'
-    publishLocation: 'Container'
+# - task: CopyFiles@2
+#   inputs:
+#     Contents: 'TodoApi.zip'
+#     TargetFolder: '${{parameters.artifactstagingdirectory}}'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '${{parameters.artifactstagingdirectory}}'
+#     ArtifactName: 'BuildArtifact'
+#     publishLocation: 'Container'
