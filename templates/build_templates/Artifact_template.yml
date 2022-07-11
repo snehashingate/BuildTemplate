@@ -1,8 +1,8 @@
 # File: templates/build_templates/Artifact_template.yml
 
 parameters:
-- name: 'artifactstagingdirectory'
-  type: string
+# - name: 'artifactstagingdirectory'
+#   type: string
 
 steps:
 - task: DotNetCoreCLI@2
