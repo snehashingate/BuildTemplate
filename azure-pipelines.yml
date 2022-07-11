@@ -45,14 +45,14 @@ jobs:
 - job: build
   displayName: build
   pool: 
-    vmImage: $(parameters.image)
+    vmImage: ${{ parameters.image }}
   steps:
   - script: echo building $(Build.BuildNumber) with ${{ parameters.image }}
 
 # Nuget Tool Installer task
   - template: ./templates/build_templates/NuGetToolInstaller_template.yml
     parameters:
-      solutionName: '$(parameters.solution)'
+      solutionName: '${{ parameters.solution }}'
       versionSpec: '${{ parameters.versionSpec }}'
 
 # Build Template 
