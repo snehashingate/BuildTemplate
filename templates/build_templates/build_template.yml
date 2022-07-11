@@ -7,7 +7,7 @@ parameters:
 steps:
 - task: VSBuild@1
   inputs:
-    solution: '${{parameters.solutionName}}'
+    solution: '$(parameters.solutionName)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: 'Any CPU'
     configuration: 'Release'
