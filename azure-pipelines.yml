@@ -62,8 +62,8 @@ jobs:
 
 # Artifact Template    
   - template: ./templates/build_templates/Artifact_template.yml
-    parameters:
-      solutionName: '${{ parameters.solution }}'
+    # parameters:
+    #   solutionName: '${{ parameters.solution }}'
       
 # variables:
 
