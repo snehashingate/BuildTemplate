@@ -1,6 +1,6 @@
 # File: templates/build_templates/Artifact_template.yml
 
-parameters:
+# parameters:
 # - name: 'artifactstagingdirectory'
 #   type: string
 
