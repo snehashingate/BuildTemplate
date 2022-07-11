@@ -50,18 +50,18 @@ jobs:
   - script: echo building $(Build.BuildNumber) with ${{ parameters.image }}
 
 # Nuget Tool Installer task
-  - template: ./templates/NuGetToolInstaller_template.yml
+  - template: ./templates/build_templates/NuGetToolInstaller_template.yml
     parameters:
       solutionName: '$(parameters.solution)'
       versionSpec: '${{ parameters.versionSpec }}'
 
 # Build Template 
-  - template: ./templates/buildTemplate.yml
+  - template: ./templates/build_templates/buildTemplate.yml
     parameters:
       solutionName: '${{ parameters.solution }}'
 
 # Artifact Template    
-  - template: ./templates/Artifact_template.yml
+  - template: ./templates/build_templates/Artifact_template.yml
     parameters:
       solutionName: '${{ parameters.solution }}'
       
